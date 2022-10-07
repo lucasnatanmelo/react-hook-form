@@ -16,16 +16,23 @@ const schema = yup.object({
 
 function App() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
+    defaultValues: {
+      name: "Lucas Natan",
+      email: "lucasnatan.dev@gmail.com"
+    }
   });
 
   function onSubmit(userData){
     console.log(userData);
   }
 
+  // Retorna os erros encontrados nos formulários
   console.log({errors});
 
-  console.log(watch("name"))
+  // Watch - Utilizado no log das variáveis de inputs
+  console.log(watch("Name"));
+  console.log(watch())
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -33,7 +40,7 @@ function App() {
 
       <label>
         Nome
-        <input type="text" {...register("name", { required: true })}/>
+        <input type="text" placeholder='Nome' {...register("name", { required: true })}/>
 
         <span>{errors.name?.message}</span> 
 
@@ -41,7 +48,7 @@ function App() {
 
       <label>
         Email
-        <input type="text" {...register("email")}/>
+        <input type="text"  placeholder='Email' {...register("email")}/>
 
         <span>{errors.email?.message}</span> 
       </label>
